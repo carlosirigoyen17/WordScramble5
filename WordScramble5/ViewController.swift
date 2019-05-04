@@ -67,7 +67,7 @@ class ViewController: UITableViewController {
     var errorMessage: String
     
     let lowerAnswer = answer.lowercased()
-    if isPossible(word: lowerAnswer), !lowerAnswer.isEmpty {
+    if isPossible(word: lowerAnswer) && !lowerAnswer.isEmpty {
       if isOriginal(word: lowerAnswer) {
         if isReal(word: lowerAnswer) {
           usedWords.insert(lowerAnswer, at: 0)
@@ -112,6 +112,17 @@ class ViewController: UITableViewController {
   }
   
   func isReal(word: String) -> Bool {
+    
+    if word.count <= 2 { return false }
+    
+    guard let titleAux = title else {
+      return false
+    }
+    if word == titleAux.prefix(3) {
+      print("son igules")
+      return false
+    }
+    
     let checker = UITextChecker()
     let range = NSRange(location: 0, length: word.utf16.count)
     print(range)
